@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   try {
     /************ CONFIG POR LANDING ************/
-    const AGENCIES = [{ id: X, name: "NAME" }];
+    const AGENCIES = [{ id: 0, name: "NAME" }];
 
     const BRAND_NAME = "NAME";
     const FALLBACK_ADS = "549351";

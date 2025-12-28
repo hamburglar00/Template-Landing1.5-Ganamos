@@ -7,8 +7,8 @@
  * ✅ CONFIG (EDITAR SOLO ESTO)
  **************************************************************/
 const CONFIG = {
-  AGENCIES: [{ id: 14, name: "Farfan" }],
-  BRAND_NAME: "Farfan",
+  AGENCIES: [{ id: 1000, name: "Farfan" }],
+  BRAND_NAME: "",
 
   // 🔥 FLAG PRINCIPAL:
   // true  => SOLO usa data.ads.whatsapp
@@ -17,7 +17,7 @@ const CONFIG = {
 
   // ✅ soporte controlado por flag
   SUPPORT_FALLBACK_ENABLED: true, // ponelo false cuando ya estés seguro
-  SUPPORT_FALLBACK_NUMBER: "5493562561313",
+  SUPPORT_FALLBACK_NUMBER: "549",
 
   // ✅ timeout / retries (prioridad: contacto)
   TIMEOUT_MS: 2000,

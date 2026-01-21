@@ -12,7 +12,6 @@
   <link rel="dns-prefetch" href="//connect.facebook.net">
   <link rel="preload" href="imagenes/fondo.avif" as="image" type="image/avif" fetchpriority="high">
 
-
   <!-- Meta Pixel Code (con coincidencias avanzadas) -->
   <script>
     function normEmail(v){return(v||"").trim().toLowerCase();}
@@ -174,8 +173,12 @@ function showRedirectOverlay(text){
   if (tx) tx.textContent = text || CONFIG_FRONT.OVERLAY_TEXT || "Redirigiendo al Whatsapp del Cajero...";
   if (ov) ov.hidden = false;
 }
+
+/* ✅ FIX: hide que también resetea texto */
 function hideRedirectOverlay(){
   const ov = document.getElementById("wa-redirect-overlay");
+  const tx = document.getElementById("wa-redirect-text");
+  if (tx) tx.textContent = CONFIG_FRONT.OVERLAY_TEXT || "Redirigiendo al Whatsapp del Cajero...";
   if (ov) ov.hidden = true;
 }
 
@@ -346,6 +349,9 @@ async function contactarWhatsApp({ source="main_button", customText=null } = {})
   const picked = pickWeightedRandom(list);
   const cleanPhone = String(picked.number || "").replace(/\D+/g,"").trim();
 
+  /* ✅ FIX: ya tengo número => oculto overlay para que no quede pegado al volver */
+  hideRedirectOverlay();
+
   const external_id = getOrCreateExternalId();
   const event_id = generateUUID();
   const event_source_url = location.href;
@@ -464,6 +470,16 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   if (sendBtn) sendBtn.addEventListener("click", sendFromBubble);
   if (input) input.addEventListener("keydown", (e)=>{ if(e.key==="Enter") sendFromBubble(); });
+
+  /* ✅ FIX: al volver desde WhatsApp (bfcache), ocultar overlay y liberar estado */
+  function resetAfterReturn(){
+    hideRedirectOverlay();
+    window.__waInFlight = false;
+  }
+  window.addEventListener("pageshow", resetAfterReturn);
+  window.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") resetAfterReturn();
+  });
 
   // ✅ Auto redirect (SOLO redirige a wa.me, NO pixel, NO sheets)
   if (CONFIG_FRONT.AUTO_REDIRECT_ENABLED) {

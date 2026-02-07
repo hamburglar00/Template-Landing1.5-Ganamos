@@ -8,19 +8,19 @@
  **************************************************************/
 
 const CONFIG = {
-  AGENCIES: [{ id: 17, name: "Geraldina" }],
-  BRAND_NAME: "Geraldina",
+  AGENCIES: [{ id: 1000, name: "" }],
+  BRAND_NAME: "",
 
   // Si querés minimizar fallback, ponelo en false:
   // false => ADS primero, si no hay ADS usa NORMAL
   ONLY_ADS_WHATSAPP: true,
 
-  SUPPORT_FALLBACK_ENABLED: true,
-  SUPPORT_FALLBACK_NUMBER: "5491169789243",
+  SUPPORT_FALLBACK_ENABLED: false,
+  SUPPORT_FALLBACK_NUMBER: "",
 
   // Más realista para serverless + upstream
   TIMEOUT_MS: 2500,
-  MAX_RETRIES: 2,
+  MAX_RETRIES: 3,
 
   UPSTREAM_BASE: "https://api.asesadmin.com/api/v1",
 };
